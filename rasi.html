@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Ugadhi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+
+        h1,
+        h4,
+        p {
+            text-align: center;
+            color: #333;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        h4 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-image: url('background.jpeg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            opacity: 0.;
+        }
+
+        label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        select {
+            width: calc(100% - 16px);
+            /* Subtracting padding and border from the width */
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            font-weight: bold;
+            color: green;
+            margin-top: 10px;
+        }
+
+        .phalalu-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .phalalu-table th,
+        .phalalu-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .phalalu-table th {
+            background-color: #f2f2f2;
+        }
+
+        /* Responsive Styles */
+        @media only screen and (max-width: 600px) {
+
+            input[type="text"],
+            select,
+            button {
+                width: 100%;
+            }
+
+            .phalalu-table {
+                font-size: 12px;
+                /* Decrease font size for smaller screens */
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h4>From Team FLM</h4>
+    <h1>ఉగాది శుభాకాంక్షలు</h1>
+    <p>Check your Rasi Phalalu for 2024 here:</p>
+
+    <form id="rasiForm">
+        <label for="name">Enter Your Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        <label for="rasi">Select Your Rasi:</label>
+        <select id="rasi" name="rasi" required>
+            <option value="">Select Rasi</option>
+            <option value="mesha">Mesha</option>
+            <option value="vrishabha">Vrishabha</option>
+            <option value="Mithuna">Mithuna</option>
+            <option value="Karka">Karka</option>
+            <option value="simha">Simha</option>
+            <option value="Kanya">Kanya</option>
+            <option value="Tula">Tula</option>
+            <option value="Vrischika">Vrischika</option>
+            <option value="Dhanu">Dhanu</option>
+            <option value="Makara">Makara</option>
+            <option value="Kumbha">Kumbha</option>
+            <option value="Meena">Meena</option>
+
+
+            <!-- Add more options as needed -->
+        </select><br><br>
+        <button type="submit">Submit</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('rasiForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value;
+            const rasi = document.getElementById('rasi').value;
+            displayRasiPhalalu(name, rasi);
+        });
+
+        function displayRasiPhalalu(name, rasi) {
+            let message = '';
+            switch (rasi.toLowerCase()) {
+                case 'simha':
+                    message = getTableHtml("02", "14", "02", "02");
+                    break;
+                case 'vrishabha':
+                    message = getTableHtml("02", "08", "07", "03");
+                    break;
+                case 'mesha':
+                    message = getTableHtml("08", "14", "04", "03");
+                    break;
+                case 'mithuna':
+                    message = getTableHtml("05", "05", "03", "06");
+                    break;
+                case 'karka':
+                    message = getTableHtml("14", "02", "06", "06");
+                    break;
+                case 'kanya':
+                    message = getTableHtml("05", "05", "05", "02");
+                    break;
+                case 'tula':
+                    message = getTableHtml("02", "01", "01", "05");
+                    break;
+                case 'vrischika':
+                    message = getTableHtml("08", "14", "04", "05");
+                    break;
+                case 'dhanu':
+                    message = getTableHtml("11", "05", "07", "05");
+                    break;
+                case 'makara':
+                    message = getTableHtml("14", "14", "03", "01");
+                    break;
+                case 'kumbha':
+                    message = getTableHtml("14", "14", "06", "01");
+                    break;
+                case 'meena':
+                    message = getTableHtml("11", "05", "02", "04");
+                    break;
+                // Add more cases for other Rasi options as needed
+                default:
+                    message = `Sorry, no Rasi Phalalu available for ${rasi} in 2024.`;
+            }
+            document.getElementById('result').innerHTML = message;
+        }
+
+        function getTableHtml(adhayam, veyam, rajapujyam, avamanam) {
+            let tableHtml = `<table class="phalalu-table">
+                <tr>
+                    <th>Aadhayam</th>
+                    <th>Vyeyam</th>
+                    <th>Rajapujyam</th>
+                    <th>Avamanam</th>
+                </tr>
+                <tr>
+                    <td>${adhayam}</td>
+                    <td>${veyam}</td>
+                    <td>${rajapujyam}</td>
+                    <td>${avamanam}</td>
+                </tr>
+            </table>`;
+            return tableHtml;
+        }
+    </script>
+</body>
+
+</html>
